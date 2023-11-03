@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Game {
     private char[][] board;
     private char currentPlayer;
@@ -62,9 +64,39 @@ public class Game {
     }
 
     public char checkWin() {
-        // Implement win-checking logic
-        // Return 'X' if X wins, 'O' if O wins, 'D' for draw, or 'N' for no result yet
-        return 'N';
+        // Check for horizontal wins
+        for (int row = 0; row < 3; row++) {
+            if (board[row][0] == board[row][1] && board[row][1] == board[row][2] && board[row][0] != 0) {
+                return board[row][0];
+            }
+        }
+
+        // Check for vertical wins
+        for (int col = 0; col < 3; col++) {
+            if (board[0][col] == board[1][col] && board[1][col] == board[2][col] && board[0][col] != 0) {
+                return board[0][col];
+            }
+        }
+
+        // Check for diagonal wins
+        if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != 0) {
+            return board[0][0];
+        }
+
+        if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != 0) {
+            return board[0][2];
+        }
+
+        // If no winner, check for a draw
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (board[row][col] == 0) {
+                    return 'N'; // The game is still ongoing
+                }
+            }
+        }
+
+        return 'D'; // It's a draw
     }
 
     public void reset() {
